@@ -9,6 +9,23 @@
     <script src="log.js"></script>
 </head>
 <body ng-controller="myLoginCtrl">
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Practice Sites </a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">AboutAs</a></li>
+                <li><a href="Register.html">Register</a></li>
+                <li><a href="login2.html">Login</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+               
+                <li><a role="button" ng-click="LogOut();"><span class="glyphicon glyphicon-log-in"></span>Logout</a></li>
+            </ul>
+        </div>
+    </nav>
     <div class="container">
         <form id="myForm" ng-submit="LoginForm1()">
             <div class="row page-header">

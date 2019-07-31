@@ -16,7 +16,19 @@
     </style>
 </head>
 <body ng-controller="MyCtrl">
-
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Practice Sites </a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">AboutAs</a></li>
+                <li><a href="Register.html">Register</a></li>
+                <li><a href="login2.html">Login</a></li>
+            </ul>
+        </div>
+    </nav>
 
     <form id="form" name="form" ng-submit="submit()">
 
@@ -47,10 +59,12 @@
                     <div class="row">
                         <div class="form-group">
                             <label for="email">Email:</label>
-                            <input type="email" class="form-control" id="email" placeholder="Enter email id" name="email" ng-model="email" required ng-change="Check()" remote-Validation>
-                            <span ng-show="form.email.$touched && form.email.$invalid" style="color:red">The email is required.</span>
-                            <soan ng-bind="emailspan" style="color:red"></soan>
-                            
+                            <div class="">
+                                <input type="email" class="form-control form-control-lg input-block is-autocheck-successful" id="email" placeholder="Enter email id" name="email" ng-model="email" required ng-change="Check()" remote-Validation>
+                                <div class="is-valid"></div>
+                                <span ng-show="form.email.$touched && form.email.$invalid" style="color:red">The email is required.</span>
+                                <span ng-bind="emailspan" style="color:red"></span>
+                            </div>
                         </div>
                     </div>
 
@@ -82,7 +96,7 @@
                                    
                                 </tr>
                             </thead>
-                            <tr ng-repeat="s in GetAllData ">
+                            <tr ng-repeat="s in GetAllData | filter:name ">
                                 <td>{{s.UserName}}</td>
                                 <td>{{s.Password}}</td>
                                 <td>{{s.Email}}</td>

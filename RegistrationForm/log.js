@@ -3,8 +3,14 @@
 var app = angular.module("MyLogin", []);
 app.controller("myLoginCtrl", function ($scope,$http) {
     alert("Ctrl");
-    'use strict';
    
+    $scope.LogOut = function () {
+        alert("Are You sure Log Out.");
+        $scope.name = "";
+        $scope.password = "";
+        $scope.loginDetails = "";
+    }
+
     $scope.name = "";
     $scope.password = "";
     $scope.loginDetails = "";
@@ -41,11 +47,9 @@ app.controller("myLoginCtrl", function ($scope,$http) {
     $scope.ClearData = function () {
         alert("clear");
     }
-
+   
 });
-$scope.CheckGit = function () {
 
-}
 //app.factory('Checkname', function ($http) {
 //    alert("name");
 //    var fac = {};
