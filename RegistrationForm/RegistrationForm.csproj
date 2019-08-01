@@ -130,10 +130,12 @@
     <Content Include="App.js" />
     <Content Include="AppLogin.js" />
     <Content Include="CheckGit.html" />
+    <Content Include="forgot.html" />
     <Content Include="Global.asax" />
     <Content Include="log.js" />
     <Content Include="Login.html" />
     <Content Include="login2.html" />
+    <Content Include="NewPassword.html" />
     <Content Include="Register.html" />
     <Content Include="RegisterDb.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

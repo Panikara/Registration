@@ -1,14 +1,39 @@
 ﻿/// <reference path="c:\users\spuser.vtslindia\documents\visual studio 2015\Projects\BRegForm_1\BRegForm_1\scripts/angular.js" />
 
-var app = angular.module("MyLogin", []);
+var app = angular.module("MyLogin", ["appforget"]);
+
+var appforget = angular.module("appforget", ['ngRoute']);
+appforget.controller("myForgot", function ($scope,$http,$window) {
+    alert("ForgetPage")
+    $scope.Check = function () {
+        $http.get("/Home/Login?name=" + $scope.name).then(function (response) {
+            if (response.data != 0) {
+                $window.location = "NewPassword.html";
+            }
+        })
+    }
+})
+
 app.controller("myLoginCtrl", function ($scope,$http) {
     alert("Ctrl");
    
+        $(document).ready(function () {
+            $('#SingleRecordData').hide();
+        });
+   
+       
+
+
+
     $scope.LogOut = function () {
         alert("Are You sure Log Out.");
         $scope.name = "";
         $scope.password = "";
         $scope.loginDetails = "";
+        $(document).ready(function () {
+            $('#SingleRecordData').hide();
+        });
+
     }
 
     $scope.name = "";
@@ -24,6 +49,10 @@ app.controller("myLoginCtrl", function ($scope,$http) {
                 if (response.data.Password == $scope.password) {
                     $scope.Error = "";
                     alert("Your Successfully Login Welcome" + " " + $scope.name)
+                    $(document).ready(function () {
+                        $('#SingleRecordData').show();
+                    });
+                    
                 }
                 else {
                     $scope.Error = "Your credentials are Invaild";

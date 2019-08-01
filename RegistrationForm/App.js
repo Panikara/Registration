@@ -1,7 +1,13 @@
 ﻿/// <reference path="c:\users\spuser.vtslindia\documents\visual studio 2015\Projects\BRegForm_1\BRegForm_1\scripts/angular.js" />
 var app = angular.module("MyReg", []);
 app.controller("MyCtrl", function ($scope, $http, UniqueEmail, $window) {
-    
+
+    $(document).ready(function () {
+        $('#PleaseLogin').hover(function () {
+            alert("Please Login and Edit Your Details");
+        });
+    });
+
     $scope.username = "";
     $scope.password = "";
     $scope.email = "";
@@ -82,6 +88,7 @@ app.controller("MyCtrl", function ($scope, $http, UniqueEmail, $window) {
         })
     }
     $scope.DeleteRecord = function (email) {
+      //  $window.location = "login2.html";
         $http.get("/Home/DeleteRecord?email=" + email)
 
     }
