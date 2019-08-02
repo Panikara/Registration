@@ -16,10 +16,10 @@
                 <div class="form-group">
 
                     <label>UserName</label>
-                    <input type="text" ng-model="name" name="name" id="name" class="form-control" />
-                   
+                    <input type="text" ng-model="name" name="name" id="name" class="form-control" ng-change="Check()" />
+                    <span ng-show="form.email.$touched && form.email.$invalid" style="color:red">The email is required.</span>
                 </div>
-                <button class="btn btn-primary" ng-click="Check()">Check</button>
+                <button class="btn btn-primary" ng-click="">Check</button>
             </div>
         </div>
     </div>

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
+using System.Text;
 
 namespace RegistrationForm.Controllers
 {
@@ -16,6 +18,7 @@ namespace RegistrationForm.Controllers
         [HttpPost]
         public JsonResult Index(tblRegistration details)
         {
+            //string strpass = encryptpass(password);
             DbContext.tblRegistrations.Add(details);
             DbContext.SaveChanges();
 
@@ -46,6 +49,23 @@ namespace RegistrationForm.Controllers
             DbContext.tblRegistrations.Remove(DeleteOne);
             DbContext.SaveChanges();
            return Json(DeleteOne);
+        }
+        public ActionResult Update(tblRegistration details)
+        {
+
+            RegisterDbEntities DbContext = new RegisterDbEntities();
+            DbContext.Entry(details).State =EntityState.Modified;
+            DbContext.SaveChanges();
+
+            return View();
+        }
+        public string encryptpass(string password)
+        {
+            string msg = "";
+            byte[] encode = new byte[password.Length];
+            encode = Encoding.UTF8.GetBytes(password);
+            msg = Convert.ToBase64String(encode);
+            return msg;
         }
     }
 }
