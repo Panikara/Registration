@@ -26,5 +26,6 @@ namespace RegistrationForm
         }
     
         public virtual DbSet<tblRegistration> tblRegistrations { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
     }
 }

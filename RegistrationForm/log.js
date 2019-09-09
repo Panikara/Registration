@@ -41,6 +41,7 @@ newpassword.controller("myNewPassword", function ($scope, $http) {
             headers: { "Content-Type": "application/json" }
          })
          alert("Password Successfully Updated Login Now.");
+      
        then(function (response) {
            console.log(response.data);
           // $scope.details.push(response.data);
@@ -64,12 +65,16 @@ appforget.controller("myForgot", function ($scope,$http,$window) {
 
 app.controller("myLoginCtrl", function ($scope,$http) {
     alert("Ctrl");
-   
+   // $scope.GetAllData = "";
         $(document).ready(function () {
             $('#SingleRecordData').hide();
         });
    
-       
+        $scope.LoginForm1 = function () {
+            alert("Clear")
+            $scope.name = "";
+            $scope.password = "";
+        }
 
 
 
@@ -91,10 +96,12 @@ app.controller("myLoginCtrl", function ($scope,$http) {
     $scope.LoginForm = function () {
         alert("Login");
         $http.get("/Home/Login?name=" + $scope.name).then(function (response) {
+            debugger;
+            console.log(response.data);
             $scope.loginDetails = response.data;
             console.log($scope.loginDetails);
             if (response.data != 0) {
-                if (response.data.Password == $scope.password) {
+                if (response.data == $scope.loginDetails) {
                     $scope.Error = "";
                     alert("Your Successfully Login Welcome" + " " + $scope.name)
                     $(document).ready(function () {
@@ -107,7 +114,7 @@ app.controller("myLoginCtrl", function ($scope,$http) {
                     $scope.loginDetails = "";
                     alert("Your credentials are Invaild");
                 }
-               
+                debugger;
             }
         })
         //Checkname.Check($scope.name).then(function (response) {
@@ -121,7 +128,7 @@ app.controller("myLoginCtrl", function ($scope,$http) {
         //    }
         //})
     }
-    $scope.ClearData = function () {
+    $scope.ClearDat = function () {
         alert("clear");
     }
    

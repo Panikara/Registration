@@ -66,11 +66,11 @@
                         <th>ADDRESS</th>
                         <th>ACTIONS</th>
                     </tr>
-                    <tr>
-                        <td ng-bind="loginDetails.UserName"></td>
-                        <td ng-bind="loginDetails.Password"></td>
-                        <td ng-bind="loginDetails.Email"></td>
-                        <td ng-bind="loginDetails.Address"></td>
+                    <tr ng-repeat="loginDetail in loginDetails">
+                        <td>{{loginDetail.UserName}}</td>
+                        <td>{{loginDetail.Password}}</td>
+                        <td>{{loginDetail.Email}}</td>
+                        <td>{{loginDetail.Address}}</td>
                         <td>
                             <a  class="btn btn-dark a-btn-slide-text" ng-show="!Buttonsrow"><span class="glyphicon glyphicon-eye-open" aria-hidden="true" ng-show="!Buttonsrow"></span>Views</a> |
                             <a href="" class="btn btn-dark a-btn-slide-text"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Edit</a> |

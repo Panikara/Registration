@@ -6,7 +6,15 @@ app.controller("MyCtrl", function ($scope, $http, UniqueEmail, $window) {
         $('#PleaseLogin').hover(function () {
             alert("Please Login and Edit Your Details");
         });
+       
     });
+    $(document).ready(function (){
+        $("#ss").click(function () {
+            $('#myModal').modal("hide");
+        })
+    })
+
+   
 
     $scope.username = "";
     $scope.password = "";
@@ -35,6 +43,8 @@ app.controller("MyCtrl", function ($scope, $http, UniqueEmail, $window) {
     $scope.submit = function () {
         $scope.wasSubmitted = true;
     };
+
+
 
     $scope.Check = function () {
         UniqueEmail.Check($scope.email).then(function (response) {
@@ -71,7 +81,7 @@ app.controller("MyCtrl", function ($scope, $http, UniqueEmail, $window) {
            
 
 
-            $scope.details.push(data)
+            $scope.GetAllData.push(data)
          
         });
         $scope.username = "";
@@ -91,6 +101,20 @@ app.controller("MyCtrl", function ($scope, $http, UniqueEmail, $window) {
       //  $window.location = "login2.html";
         $http.get("/Home/DeleteRecord?email=" + email)
 
+    }
+
+    $scope.login = function () {
+        alert("try");
+        $http.get("/Home/Login?name=" + $scope.username).then(function (response) {
+            alert("in");
+            console.log(response.data);
+            $scope.loginDetails = response.data;
+            if (response.data != 0) {
+                if (response.data.username == $scope.loginDetails.username) {
+                    alert("Your Successfully Login Welcome" + " " + $scope.username)
+                }
+            }
+        })
     }
 })
 

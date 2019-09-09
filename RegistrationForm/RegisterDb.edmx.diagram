@@ -6,6 +6,8 @@
     <edmx:Diagrams>
       <Diagram DiagramId="f8223bce5377499b95d7f3c4452c8f5b" Name="Diagram1">
         <EntityTypeShape EntityType="RegisterDbModel.tblRegistration" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RegisterDbModel.Role" Width="1.5" PointX="3" PointY="1" />
+        <AssociationConnector Association="RegisterDbModel.FK__Roles__Id__1273C1CD" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

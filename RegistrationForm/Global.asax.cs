@@ -14,5 +14,6 @@ namespace RegistrationForm
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
         }
+       
     }
 }

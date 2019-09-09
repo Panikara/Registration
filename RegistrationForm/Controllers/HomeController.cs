@@ -5,19 +5,21 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using System.Text;
+using System.IO;
 
 namespace RegistrationForm.Controllers
 {
     public class HomeController : Controller
     {
         // GET: Home
-
+        
         RegisterDbEntities DbContext = new RegisterDbEntities();
         List<tblRegistration> tblemaildetails = new List<tblRegistration>();
-       
+        List<Role> RoleInfo = new List<Role>();
         [HttpPost]
         public JsonResult Index(tblRegistration details)
         {
+            
             //string strpass = encryptpass(password);
             DbContext.tblRegistrations.Add(details);
             DbContext.SaveChanges();
@@ -29,15 +31,33 @@ namespace RegistrationForm.Controllers
             tblemaildetails = DbContext.tblRegistrations.Where(a => a.Email == email).ToList();
             return Json(tblemaildetails,JsonRequestBehavior.AllowGet);
         }
+
+       // [Authorize(Roles = "Admin")]
         public ActionResult Login(string name)
         {
-            var logDetails = DbContext.tblRegistrations.Where(a => a.UserName ==
-            name).FirstOrDefault();
-            return Json(logDetails,JsonRequestBehavior.AllowGet);
+            DbContext.Configuration.ProxyCreationEnabled = false;
+          
+           // var roleid = DbContext.Roles.ToList();
+         
+
+            if (name=="Sateesh")
+            {
+                // return GetAllData();
+                var logDetails = DbContext.tblRegistrations.ToList();
+                return Json(logDetails, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var logDetails = DbContext.tblRegistrations.Where(a => a.UserName ==
+           name).FirstOrDefault();
+                return Json(logDetails, JsonRequestBehavior.AllowGet);
+            }
+            
          
         }
         public ActionResult GetAllData()
         {
+            DbContext.Configuration.ProxyCreationEnabled = false;
             List<tblRegistration> tblDetails = DbContext.tblRegistrations.ToList();
             return Json(tblDetails, JsonRequestBehavior.AllowGet);
         }

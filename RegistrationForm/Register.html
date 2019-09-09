@@ -11,6 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular-route.js"></script>
     <script src="App.js"></script>
+    
     <style>
      
     </style>
@@ -52,7 +53,7 @@
                             <label for="pwd">Password:</label>
                             <input type="password" class="form-control" id="password" placeholder="Enter password" name="password" ng-model="password" required>
                             <span ng-show="form.password.$touched && form.password.$invalid" style="color:red">The password is required.</span>
-                        
+
                         </div>
                     </div>
 
@@ -71,54 +72,112 @@
                     <div class="row">
                         <div class="form-group">
                             <label for="address">Address:</label>
-                            <textarea class="form-control" rows="5" id="address" name="address" ng-model="address" required></textarea>
+                            <textarea class="form-control" rows="5" id="address" name="address" ng-model="address"  required></textarea>
                             <span ng-show="form.address.$touched && form.address.$invalid" style="color:red">The address is required.</span>
 
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid" ng-click="SaveData()">Submit</button>
+                    <div>
+
+                        
+                    </div>
+                    <!---First One--->
+                        <button type="button" ng-click="SaveData()" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Create User</button>
+                 
                     <a href="login2.html" class="btn btn-primary" role="button">If You already Exist Login Here.. </a>
 
-                </div>
-                <div>
-                    <div class="col-md-8">
-<div>
-    <h4> Search Your UserName</h4><input type="text" id="name" ng-model="name"  name="name" placeholder="search your name" class="form-control"/>
-                        <table class="table table-bordered well">
-                            <thead class="thead-dark">
-                                <tr style="color:azure;background-color:black">
-                                    <th>USER NAME</th>
-                                    <th>PASSWORD</th>
-                                    <th>EMAIL</th>
-                                    <th>ADDRESS</th>
-                                    <th>ACTIONS</th>
-                                   
-                                </tr>
-                            </thead>
-                            <tr ng-repeat="s in GetAllData | filter:name ">
-                                <td>{{s.UserName}}</td>
-                                <td>{{s.Password}}</td>
-                                <td>{{s.Email}}</td>
-                                <td>{{s.Address}}</td>
-                                <td id="PleaseLogin" name="PleaseLogin" ng-mouseover="geek=true" 
-                    ng-mouseleave="geek=false"><a href="" class="btn btn-dark a-btn-slide-text btn-lg disabled" role="button"  aria-disabled="true"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>Views</a> |
-                                <a href="" class="btn btn-dark a-btn-slide-text btn-lg disabled"  aria-disabled="true"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Edit</a> |
-                                    <a href="#" class="btn btn-dark a-btn-slide-text " onclick="return confirm('Are you sure you want to delete this item?')" ng-click="DeleteRecord(s.Email)"  aria-disabled="true">
-                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                        <span><strong>Delete</strong></span>
-                                    </a>
-                                   <div ng-show="geek">
-                                      
-                                   </div>
-                                </tr>
-                        </table>
 
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title" style="color:white;background-color:black;text-align:center">Write Reason</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <textarea></textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button"  class="btn btn-primary" data-toggle="modal" data-target="#myModal1" id="ss">Submit</button>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                </div>
+                               
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                      
+            <!--Second-->
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal1" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content" id="myModal1">
+                                <div class="modal-header" id="myModal1">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title" style="color:white;background-color:black;text-align:center">Login</h4>
+                                </div>
+                                <div class="modal-body" id="myModal1">
+                                    <input type="text" class="form-control" id="username" placeholder="Enter username" name="username" value="{{username}}" required>
+                                    <br />
+                                    <input type="password" class="form-control" id="password" placeholder="Enter password" name="password"  required>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" ng-click="login()" class="btn btn-primary" data-toggle="modal" data-target="#myModal1">Login</button>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                            <!--<button type="submit" class="btn btn-primary" ng-disabled="form.$invalid" data-toggle="modal" data-target="#myModal">Submit</button>-->
+                          
+
+                        </div>
+                        
                     </div>
+                      </div>
+                    </div>
+            <div class="col-md-8">
+                <div>
+                    <h4> Search Your UserName</h4><input type="text" id="name" ng-model="name" name="name" placeholder="search your name" class="form-control" />
+                    <table class="table table-bordered well">
+                        <thead class="thead-dark">
+                            <tr style="color:azure;background-color:black">
+                                <th>USER NAME</th>
+                                <th>PASSWORD</th>
+                                <th>EMAIL</th>
+                                <th>ADDRESS</th>
+                                <th>ACTIONS</th>
+
+                            </tr>
+                        </thead>
+                        <tr ng-repeat="s in GetAllData | filter:name ">
+                            <td>{{s.UserName}}</td>
+                            <td>{{s.Password}}</td>
+                            <td>{{s.Email}}</td>
+                            <td>{{s.Address}}</td>
+                            <td id="PleaseLogin" name="PleaseLogin" ng-mouseover="geek=true"
+                                ng-mouseleave="geek=false">
+                                <a href="" class="btn btn-dark a-btn-slide-text btn-lg disabled" role="button" aria-disabled="true"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>Views</a> |
+                                <a href="" class="btn btn-dark a-btn-slide-text btn-lg disabled" aria-disabled="true"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Edit</a> |
+                                <a href="#" class="btn btn-dark a-btn-slide-text " onclick="return confirm('Are you sure you want to delete this item?')" ng-click="DeleteRecord(s.Email)" aria-disabled="true">
+                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    <span><strong>Delete</strong></span>
+                                </a>
+                                <div ng-show="geek">
+
+                                </div>
+                        </tr>
+                    </table>
+
                 </div>
             </div>
-        </div>
-    </form>
+</form>
    
    
 </body>
