@@ -1,19 +1,36 @@
 ﻿<!DOCTYPE html>
 <html lang="en" ng-app="MyReg">
 <head>
-    <title>Bootstrap Example</title>
+    <title>Data table to PDF Export</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.2.61/jspdf.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css" />
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+
+
+
+
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular-route.js"></script>
+
     <script src="App.js"></script>
-    
+
     <style>
-     
     </style>
 </head>
 <body ng-controller="MyCtrl">
@@ -72,7 +89,7 @@
                     <div class="row">
                         <div class="form-group">
                             <label for="address">Address:</label>
-                            <textarea class="form-control" rows="5" id="address" name="address" ng-model="address"  required></textarea>
+                            <textarea class="form-control" rows="5" id="address" name="address" ng-model="address" required></textarea>
                             <span ng-show="form.address.$touched && form.address.$invalid" style="color:red">The address is required.</span>
 
                         </div>
@@ -80,11 +97,11 @@
 
                     <div>
 
-                        
+
                     </div>
                     <!---First One--->
-                        <button type="button" ng-click="SaveData()" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Create User</button>
-                 
+                    <button type="button" ng-click="SaveData()" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Create User</button>
+
                     <a href="login2.html" class="btn btn-primary" role="button">If You already Exist Login Here.. </a>
 
 
@@ -102,19 +119,15 @@
                                     <textarea></textarea>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button"  class="btn btn-primary" data-toggle="modal" data-target="#myModal1" id="ss">Submit</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal1" id="ss">Submit</button>
                                     <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                                 </div>
-                               
-
-
-
-                                    </div>
-                                </div>
                             </div>
+                        </div>
+                    </div>
 
-                      
-            <!--Second-->
+
+                    <!--Second-->
                     <!-- Modal -->
                     <div class="modal fade" id="myModal1" role="dialog">
                         <div class="modal-dialog">
@@ -127,7 +140,7 @@
                                 <div class="modal-body" id="myModal1">
                                     <input type="text" class="form-control" id="username" placeholder="Enter username" name="username" value="{{username}}" required>
                                     <br />
-                                    <input type="password" class="form-control" id="password" placeholder="Enter password" name="password"  required>
+                                    <input type="password" class="form-control" id="password" placeholder="Enter password" name="password" required>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" ng-click="login()" class="btn btn-primary" data-toggle="modal" data-target="#myModal1">Login</button>
@@ -135,50 +148,79 @@
                                 </div>
                             </div>
                             <!--<button type="submit" class="btn btn-primary" ng-disabled="form.$invalid" data-toggle="modal" data-target="#myModal">Submit</button>-->
-                          
+
 
                         </div>
-                        
+
                     </div>
-                      </div>
-                    </div>
+                </div>
+            </div>
             <div class="col-md-8">
                 <div>
                     <h4> Search Your UserName</h4><input type="text" id="name" ng-model="name" name="name" placeholder="search your name" class="form-control" />
-                    <table class="table table-bordered well">
-                        <thead class="thead-dark">
-                            <tr style="color:azure;background-color:black">
-                                <th>USER NAME</th>
-                                <th>PASSWORD</th>
-                                <th>EMAIL</th>
-                                <th>ADDRESS</th>
-                                <th>ACTIONS</th>
-
-                            </tr>
-                        </thead>
-                        <tr ng-repeat="s in GetAllData | filter:name ">
-                            <td>{{s.UserName}}</td>
-                            <td>{{s.Password}}</td>
-                            <td>{{s.Email}}</td>
-                            <td>{{s.Address}}</td>
-                            <td id="PleaseLogin" name="PleaseLogin" ng-mouseover="geek=true"
-                                ng-mouseleave="geek=false">
-                                <a href="" class="btn btn-dark a-btn-slide-text btn-lg disabled" role="button" aria-disabled="true"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>Views</a> |
-                                <a href="" class="btn btn-dark a-btn-slide-text btn-lg disabled" aria-disabled="true"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Edit</a> |
-                                <a href="#" class="btn btn-dark a-btn-slide-text " onclick="return confirm('Are you sure you want to delete this item?')" ng-click="DeleteRecord(s.Email)" aria-disabled="true">
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                    <span><strong>Delete</strong></span>
-                                </a>
-                                <div ng-show="geek">
-
-                                </div>
-                        </tr>
-                    </table>
+                    <div id="content">
+                        <table id="demo" name="demo" class="table table-bordered well">
+                            <thead class="thead-dark">
+                                <tr style="color:azure;background-color:black">
+                                    <th>USER NAME</th>
+                                    <th>PASSWORD</th>
+                                    <th>EMAIL</th>
+                                    <th>ADDRESS</th>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="s in GetAllData | filter:name ">
+                                    <td>{{s.UserName}}</td>
+                                    <td>{{s.Password}}</td>
+                                    <td>{{s.Email}}</td>
+                                    <td>{{s.Address}}</td>
+                                </tr>
+                            <tbody>
+                        </table>
+                        <button value="Export" id="export">Export</button>
+                    </div>
 
                 </div>
+                <div class="col-md-8">
+                    <div>
+                        <h4> Search Your UserName</h4><input type="text" id="name1" ng-model="name1" name="name1" placeholder="search your name" class="form-control" />
+                        <table class="table table-bordered well" id="SingleData">
+                            <thead class="thead-dark">
+                                <tr style="color:azure;background-color:black">
+                                    <th>USER NAME</th>
+                                    <th>PASSWORD</th>
+                                    <th>EMAIL</th>
+                                    <th>ADDRESS</th>
+                                    <th>ACTIONS</th>
+
+                                </tr>
+                            </thead>
+                            <tr ng-repeat="loginDetail in loginShow">
+                                <td value="loginDetail.UserName" ng-bind="loginDetail.UserName">{{loginDetail.UserName}}</td>
+                                <td>{{loginDetail.Password}}</td>
+                                <td>{{loginDetail.Email}}</td>
+                                <td>{{loginDetail.Address}}</td>
+                                <td id="PleaseLogin" name="PleaseLogin" ng-mouseover="geek=true"
+                                    ng-mouseleave="geek=false">
+                                    <a href="" class="btn btn-dark a-btn-slide-text btn-lg disabled" role="button" aria-disabled="true"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>Views</a> |
+                                    <a href="" class="btn btn-dark a-btn-slide-text btn-lg disabled" aria-disabled="true"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Edit</a> |
+                                    <a href="#" class="btn btn-dark a-btn-slide-text " onclick="return confirm('Are you sure you want to delete this item?')" ng-click="DeleteRecord(s.Email)" aria-disabled="true">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                        <span><strong>Delete</strong></span>
+                                    </a>
+                                    <div ng-show="geek">
+
+                                    </div>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
             </div>
-</form>
-   
-   
+
+            <!--Single Record-->
+
+    </form>
+
+
 </body>
 </html>
