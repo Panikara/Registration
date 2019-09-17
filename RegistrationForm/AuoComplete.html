@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html ng-app="AutoComplete">
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular-route.js"></script>
+    <script src="AutoC.js"></script>
+</head>
+<body ng-controller="MyAutoComplete">
+    <form id="myForm">
+        <input type="text" id="email" placeholder="Enter email" name="email" ng-model="email" ng-change="AutoEmail();">
+        <br/>
+        <input type="password" id="password" placeholder="Enter password" name="password" ng-model="password">
+        <br />
+        <input type="text" id="name" placeholder="Enter username" name="username" ng-model="username" >
+        <br/>
+        <button id="submit">Submit</button>
+    </form>
+</body>
+</html>

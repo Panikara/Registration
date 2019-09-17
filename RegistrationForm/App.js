@@ -8,13 +8,12 @@ app.controller("MyCtrl", function ($scope, $http, UniqueEmail, $window) {
         $("#ss").click(function () {
             $('#myModal').modal("hide");
         })
-
-    });
-    //$(document).ready(function () {
-    //    $("#ss").click(function () {
-    //        $('#myModal').modal("hide");
-    //    })
-    //})
+        $("#hide").click(function () {
+            alert("Hide");
+            $('td:nth-child(2),th:nth-child(2)').addClass('MyHide');
+        })
+ });
+    
     $scope.username = "";
     $scope.password = "";
     $scope.email = "";
@@ -72,6 +71,7 @@ app.controller("MyCtrl", function ($scope, $http, UniqueEmail, $window) {
     }
     $scope.GetAllData = function () {
         $http.get("/Home/GetAllData").then(function (response) {
+
             console.log(response.data);
         })
     }
@@ -79,6 +79,9 @@ app.controller("MyCtrl", function ($scope, $http, UniqueEmail, $window) {
         //  $window.location = "login2.html";
         $http.get("/Home/DeleteRecord?email=" + email)
     }
+
+
+
 
     //Jquery Datatable To Pdf
 
@@ -92,15 +95,23 @@ app.controller("MyCtrl", function ($scope, $http, UniqueEmail, $window) {
     };
     function exportPDF() {
         var doc = new jsPDF('p', 'pt', 'a4');
-        var source = document.getElementById('content').innerHTML;
+
+       
+
+        var source = (document.getElementById('content'));
+        alert(source);
+      
+        
+
         var margins = {
             top: 10,
             bottom: 10,
-            left: 10,
+            left:50,
+            right:25,
             width: 790
         };
         doc.fromHTML(
-              source, // HTML string or DOM elem ref.
+              source,// HTML string or DOM elem ref.
               margins.left,
               margins.top, {
                   'width': margins.width,
@@ -114,6 +125,7 @@ app.controller("MyCtrl", function ($scope, $http, UniqueEmail, $window) {
     }
 
     $scope.loginShow = "";
+    $scope.Mpassword = "";
     $scope.login = function () {
         alert("try");
         $http.get("/Home/Login?name=" + $scope.username).then(function (response) {
@@ -123,7 +135,13 @@ app.controller("MyCtrl", function ($scope, $http, UniqueEmail, $window) {
             console.log($scope.loginShow);
             if (response.data != 0) {
                 if (response.data == $scope.loginShow) {
-                    alert("Your Successfully Login Welcome" + " " + $scope.username)
+                    if ($scope.Mpassword == $scope.loginShow.Password) {
+                        alert("Your Successfully Login Welcome" + " " + $scope.username)
+                    }
+                    else {
+                        alert("Password Wrong");
+                    }
+                   
                 }
             }
         })
