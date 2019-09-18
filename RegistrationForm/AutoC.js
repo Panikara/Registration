@@ -6,7 +6,8 @@ app.controller("MyAutoComplete", function ($scope, $http) {
     $scope.AutoEmail = function (email) {
   
         $http.get("/Home/UniqueEmail?email=" + $scope.email).then(function (response) {
-         
+            $scope.all = response.data;
+            console.log($scope.all);
             $scope.username = response.data[0].UserName;
             $scope.password = response.data[0].Password;
 

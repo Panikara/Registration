@@ -12,8 +12,14 @@ app.controller("MyCtrl", function ($scope, $http, UniqueEmail, $window) {
             alert("Hide");
             $('td:nth-child(2),th:nth-child(2)').addClass('MyHide');
         })
- });
-    
+        $("Update").click(function () {
+            $("#sname").addClass('MyHide');
+            $("#spsd").addClass('MyHide');
+            
+        })
+        
+    });
+
     $scope.username = "";
     $scope.password = "";
     $scope.email = "";
@@ -22,6 +28,7 @@ app.controller("MyCtrl", function ($scope, $http, UniqueEmail, $window) {
     $scope.GetAllData = [{}];
     $scope.emailspan = "";
 
+   
     $http.get("/Home/GetAllData").then(function (response) {
         $scope.GetAllData = response.data;
         console.log($scope.GetAllData);
@@ -49,6 +56,95 @@ app.controller("MyCtrl", function ($scope, $http, UniqueEmail, $window) {
             }
         })
     }
+
+    $("body").on("click", "#demo .Edit", function () {
+        var row = $(this).closest("tr");
+        $("td", row).each(function () {
+            if ($(this).find("input").length > 0) {
+                $(this).find("input").show();
+                $(this).find("span").hide();
+            }
+        });
+        row.find(".Update").show();
+        row.find(".Cancel").show();
+        row.find(".Delete").hide();
+        $(this).hide();
+    });
+
+    $("body").on("click", "#demo .Update", function () {
+        var row = $(this).closest("tr");
+        $("td", row).each(function () {
+            if ($(this).find("input").length > 0) {
+                var span = $(this).find("span");
+                var input = $(this).find("input");
+                span.html(input.val());
+                span.show();
+                input.hide();
+            }
+        });
+        row.find(".Edit").show();
+        row.find(".Delete").show();
+        row.find(".Cancel").hide();
+        $(this).hide();
+
+      
+    });
+
+    //Cancel event handler.
+    $("body").on("click", "#demo .Cancel", function () {
+        var row = $(this).closest("tr");
+        $("td", row).each(function () {
+            if ($(this).find("input").length > 0) {
+                var span = $(this).find("span");
+                var input = $(this).find("input");
+                input.val(span.html());
+                span.show();
+                input.hide();
+            }
+        });
+        row.find(".Edit").show();
+        row.find(".Delete").show();
+        row.find(".Update").hide();
+        $(this).hide();
+    });
+
+    $scope.UpdatedTry = function () {
+        
+        
+        $scope.NextLevel = function (s) {
+            var Id = s.Id;
+            var name = $scope.UserName;
+           // s.UserName = name;
+            alert(name);
+            alert(s.UserName);
+            alert(Id)
+             $http({
+               method: "POST",
+                url: "/Home/tryOne",
+                data: "{Id: '" + s.Id + "',username: '" + s.UserName + "', password: '" + s.Password + "',email: '" + s.Email + "',address:'" + s.Address + "'}",
+                dataType: 'json',
+                headers: { "Content-Type": "application/json" }
+            });
+
+
+                console.log(response.data);
+                //$scope.tryDetails = response.data;
+                //$(document).ready(function (){
+                //    var name = $('#uname').val();
+                //})
+              
+                //$scope.tryDetails.Id;
+                //$scope.tryDetails.Username = name;
+                //$http.post("/Home/tryOne1/" + $scope.tryDetails).then(function () {
+
+                //})
+                
+          
+
+        }
+       
+    }
+
     $scope.SaveData = function () {
         var post = $http({
             method: "POST",
@@ -96,18 +192,18 @@ app.controller("MyCtrl", function ($scope, $http, UniqueEmail, $window) {
     function exportPDF() {
         var doc = new jsPDF('p', 'pt', 'a4');
 
-       
 
-        var source = (document.getElementById('content'));
+
+        var source = (document.getElementById('content').innerHTML);
         alert(source);
-      
-        
+
+
 
         var margins = {
             top: 10,
             bottom: 10,
-            left:50,
-            right:25,
+            left: 50,
+            right: 25,
             width: 790
         };
         doc.fromHTML(
@@ -141,11 +237,14 @@ app.controller("MyCtrl", function ($scope, $http, UniqueEmail, $window) {
                     else {
                         alert("Password Wrong");
                     }
-                   
+
                 }
             }
         })
     }
+})
+app.service("Updateservice", function () {
+
 })
 app.factory('UniqueEmail', function ($http) {
     alert("UEmail");

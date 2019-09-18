@@ -12,14 +12,14 @@ namespace RegistrationForm.Controllers
     public class HomeController : Controller
     {
         // GET: Home
-        
+
         RegisterDbEntities DbContext = new RegisterDbEntities();
         List<tblRegistration> tblemaildetails = new List<tblRegistration>();
         List<Role> RoleInfo = new List<Role>();
         [HttpPost]
         public JsonResult Index(tblRegistration details)
         {
-            
+
             //string strpass = encryptpass(password);
             DbContext.tblRegistrations.Add(details);
             DbContext.SaveChanges();
@@ -27,20 +27,31 @@ namespace RegistrationForm.Controllers
             return Json(details);
         }
         public ActionResult UniqueEmail(string email)
-       {
+        {
             tblemaildetails = DbContext.tblRegistrations.Where(a => a.Email == email).ToList();
-            return Json(tblemaildetails,JsonRequestBehavior.AllowGet);
+            return Json(tblemaildetails, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult tryOne(tblRegistration s)
+       {
+            DbContext.Configuration.ProxyCreationEnabled = false;
+         //   tblRegistration d = DbContext.tblRegistrations.Find(Id);
+            DbContext.Entry(s).State = EntityState.Modified;
+            DbContext.SaveChanges();
+            return Json(s, JsonRequestBehavior.AllowGet);
+
+
         }
 
-       // [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         public ActionResult Login(string name)
         {
             DbContext.Configuration.ProxyCreationEnabled = false;
-          
-           // var roleid = DbContext.Roles.ToList();
-         
 
-            if (name=="Sateesh")
+            // var roleid = DbContext.Roles.ToList();
+
+
+            if (name == "Sateesh")
             {
                 // return GetAllData();
                 var logDetails = DbContext.tblRegistrations.ToList();
@@ -52,8 +63,8 @@ namespace RegistrationForm.Controllers
            name).FirstOrDefault();
                 return Json(logDetails, JsonRequestBehavior.AllowGet);
             }
-            
-         
+
+
         }
         public ActionResult GetAllData()
         {
@@ -64,17 +75,17 @@ namespace RegistrationForm.Controllers
         public ActionResult DeleteRecord(string email)
         {
 
-          tblRegistration DeleteOne=  DbContext.tblRegistrations.Where(a=>a.Email==email).FirstOrDefault();
+            tblRegistration DeleteOne = DbContext.tblRegistrations.Where(a => a.Email == email).FirstOrDefault();
             // DbContext.re(DeleteOne);
             DbContext.tblRegistrations.Remove(DeleteOne);
             DbContext.SaveChanges();
-           return Json(DeleteOne);
+            return Json(DeleteOne);
         }
         public ActionResult Update(tblRegistration details)
         {
 
             RegisterDbEntities DbContext = new RegisterDbEntities();
-            DbContext.Entry(details).State =EntityState.Modified;
+            DbContext.Entry(details).State = EntityState.Modified;
             DbContext.SaveChanges();
 
             return View();
@@ -92,4 +103,6 @@ namespace RegistrationForm.Controllers
         //    return new Rotativa.ActionAsPdf("GetAllData");
         //}
     }
+
+
 }
