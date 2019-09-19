@@ -98,10 +98,7 @@ namespace RegistrationForm.Controllers
             msg = Convert.ToBase64String(encode);
             return msg;
         }
-        //public ActionResult GeneratePDF()
-        //{
-        //    return new Rotativa.ActionAsPdf("GetAllData");
-        //}
+        
     }
 
 

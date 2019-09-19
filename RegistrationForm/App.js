@@ -57,6 +57,51 @@ app.controller("MyCtrl", function ($scope, $http, UniqueEmail, $window) {
         })
     }
 
+    $('#demo').find('.Update, .Cancel').hide();
+    $('#demo').on('click', '.Edit', function () {
+        $('#demo').find('.Update, .Cancel').hide();
+        $('#demo').find('.Edit').show();
+        $('#demo').find('.Delete').show();
+        $('*').prop('contenteditable', false)
+        $(this).hide().siblings('.Update, .Cancel').show();
+        currentTD = $(this).closest('td').siblings()
+        $.each(currentTD, function () {
+            $(this).attr("initialval", $(this).text())
+            $(this).prop('contenteditable', true)
+            $('td input').hide();
+            $('td span').show();
+        });
+    });
+
+    $('#demo').on('click', '.Update', function () {
+        var $btn = $(this);
+        $('#demo').find('.Update, .Cancel').hide();
+        $btn.hide().siblings('.Edit').show();
+        $btn.hide().siblings('.Delete').show();
+       
+        currentTD = $(this).closest('td').siblings()
+        $.each(currentTD, function () {
+            $(this).prop('contenteditable', false)
+        });
+    });
+
+    $('#demo').on('click', '.Cancel', function () {
+        var $btn = $(this);
+        $('#demo').find('.Update, .Cancel').hide();
+        $btn.hide().siblings('.Edit').show();
+        $btn.hide().siblings('.Delete').show();
+
+
+      
+        currentTD = $(this).closest('td').siblings()
+        $.each(currentTD, function () {
+            $(this).text($(this).attr("initialval"));
+            $(this).prop('contenteditable', false)
+        });
+    });
+
+
+
     $("body").on("click", "#demo .Edit", function () {
         var row = $(this).closest("tr");
         $("td", row).each(function () {
@@ -128,16 +173,7 @@ app.controller("MyCtrl", function ($scope, $http, UniqueEmail, $window) {
 
 
                 console.log(response.data);
-                //$scope.tryDetails = response.data;
-                //$(document).ready(function (){
-                //    var name = $('#uname').val();
-                //})
-              
-                //$scope.tryDetails.Id;
-                //$scope.tryDetails.Username = name;
-                //$http.post("/Home/tryOne1/" + $scope.tryDetails).then(function () {
-
-                //})
+               
                 
           
 
@@ -183,6 +219,9 @@ app.controller("MyCtrl", function ($scope, $http, UniqueEmail, $window) {
 
     document.getElementById('export').addEventListener('click',
         exportPDF);
+
+   
+
     var specialElementHandlers = {
         // element with id of "bypass" - jQuery style selector
         '.no-export': function (element, renderer) {
@@ -192,19 +231,13 @@ app.controller("MyCtrl", function ($scope, $http, UniqueEmail, $window) {
     function exportPDF() {
         var doc = new jsPDF('p', 'pt', 'a4');
 
-
-
-        var source = (document.getElementById('content').innerHTML);
-        alert(source);
-
-
-
-        var margins = {
-            top: 10,
-            bottom: 10,
-            left: 50,
-            right: 25,
-            width: 790
+        var source = (document.getElementById('content').innerHTML);  
+        margins = {
+            height:20,
+            top: 40,
+            bottom: 60,
+            left: 40,
+            width: 522
         };
         doc.fromHTML(
               source,// HTML string or DOM elem ref.
@@ -243,9 +276,7 @@ app.controller("MyCtrl", function ($scope, $http, UniqueEmail, $window) {
         })
     }
 })
-app.service("Updateservice", function () {
 
-})
 app.factory('UniqueEmail', function ($http) {
     alert("UEmail");
     var fac = {};

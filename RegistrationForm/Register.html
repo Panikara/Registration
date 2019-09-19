@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.2.61/jspdf.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.2.4/dist/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://github.com/simonbengtsson/jsPDF-AutoTable"></script>
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
@@ -152,7 +152,7 @@
                         <div id="content">
                             <h4 ng-hide="hide" style="visibility:hidden">Data Table to PDF EXPORT</h4>
 
-                            <table id="demo" name="demo" class="table table-bordered well">
+                            <table id="demo" name="demo" class="table table-bordered">
 
                                 <thead class="thead-dark">
                                     <tr style="color:azure;background-color:black">
@@ -160,12 +160,14 @@
                                         <th>PASSWORD</th>
                                         <th>EMAIL</th>
                                         <th>ADDRESS</th>
+                                        <th>Actions</th>
+                                        
                                 </thead>
 
                                 <tbody>
                                     <tr ng-repeat="s in GetAllData | filter:name ">
-                                        <td class="UserName" id="{{s.UserName}}"><span id="sname">{{s.UserName}}</span>
-                                            <input type="text"   id="uname" style="display:none" ng-model="s.UserName"  />
+                                        <td class="UserName" id="{{s.UserName}}"><span class="sname" id="sname">{{s.UserName}}</span>
+                                            <input type="text"  class="UserName"  id="uname" style="display:none" ng-model="s.UserName"  />
                                            
                                         </td>
                                         <td><span id="spsd">{{s.Password}}</span>
@@ -183,49 +185,18 @@
                                             <a class="Cancel" href="javascript:;" style="display:none">Cancel</a>
                                             <a class="Delete" href="javascript:;" onclick="return confirm('Are you sure you want to delete this item?')" ng-click="DeleteRecord(s.Email)">Delete</a>
                                         </td>
+                                        
                                     </tr>
                                 <tbody>
+
                             </table>
+                            <button id="hide" class="btn btn-danger">Hide Password Column</button>
 
                         </div>
 
                     </div>
-                    <button id="hide">Hide</button>
-                    <div class="col-md-8">
-                        <div>
-                            <h4> Search Your UserName</h4><input type="text" id="name1" ng-model="name1" name="name1" placeholder="search your name" class="form-control" />
-                            <table class="table table-bordered well" id="SingleData">
-                                <thead class="thead-dark">
-                                    <tr style="color:azure;background-color:black">
-                                        <th>USER</th>
-                                        <th>PASSWORD</th>
-                                        <th>EMAIL</th>
-                                        <th>ADDRESS</th>
-                                        <th>ACTIONS</th>
-
-                                    </tr>
-                                </thead>
-                                <tr ng-repeat="loginDetail in loginShow">
-                                    <td value="loginDetail.UserName" ng-bind="loginDetail.UserName">{{loginDetail.UserName}}</td>
-                                    <td>{{loginDetail.Password}}</td>
-                                    <td>{{loginDetail.Email}}</td>
-                                    <td>{{loginDetail.Address}}</td>
-                                    <td id="PleaseLogin" name="PleaseLogin" ng-mouseover="geek=true"
-                                        ng-mouseleave="geek=false">
-                                        <a href="" class="btn btn-dark a-btn-slide-text btn-lg disabled" role="button" aria-disabled="true"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>Views</a> |
-                                        <a href="" class="btn btn-dark a-btn-slide-text btn-lg disabled" aria-disabled="true"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Edit</a> |
-                                        <a href="#" class="btn btn-dark a-btn-slide-text " onclick="return confirm('Are you sure you want to delete this item?')" ng-click="DeleteRecord(s.Email)" aria-disabled="true">
-                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                            <span><strong>Delete</strong></span>
-                                        </a>
-                                        <div ng-show="geek">
-
-                                        </div>
-                                </tr>
-                            </table>
-
-                        </div>
-                    </div>
+                   
+                   
                 </div>
             </div>
 
