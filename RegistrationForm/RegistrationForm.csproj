@@ -139,6 +139,8 @@
     <Content Include="forgot.html" />
     <Content Include="Global.asax" />
     <Content Include="Images\download.png" />
+    <Content Include="listBox.js" />
+    <Content Include="listboxBinding.html" />
     <Content Include="log.js" />
     <Content Include="Login.html" />
     <Content Include="login2.html" />

@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html ng-app="ListBox">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular-route.js"></script>
+    <script src="listBox.js"></script>
+    <style>
+        .MyHide{
+            visibility:hidden;
+        }
+    </style>
+</head>
+<body ng-controller="BindingListBox">
+    <div>
+    <div ng-repeat="list in AllData">
+        <input type="checkbox" class="check" ng-model="list.selected"
+               ng-true-value="'{{list.name}}'" ng-false-value="''"
+             value="s"  id="Checkbox1"  ng-click="CheckSingle(list.Email)" />{{list.UserName  }}
+    </div>
+    <div>
+        <input type="checkbox" class="check" id="AllDetails" ng-true-value="0" value="s" ng-model="All"  />All Details
+    </div>
+     
+        </div>
+        <table id="tableAllData" border="1" >
+            <tr>
+                <th>UserName</th>
+                <th>Password</th>
+                <th>Email</th>
+                <th>ADDRESS</th>
+            </tr>
+            <tr ng-repeat="s in All">
+                <td>{{s.UserName}}</td>
+                <td>{{s.Password}}</td>
+                <td>{{s.Email}}</td>
+                <td>{{s.Address}}</td>
+            </tr>
+        </table>
+    <button id="Call">Call</button>
+    <div id="chart-container" style="height:auto;width:60%;text-align:center">
+        <canvas id="mycanvas"></canvas>
+    </div>
+    <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+</body>
+</html>
+<!--//<script src="https://cdnjs.cloudflare.com/ajax/libs/highchartTable/2.0.0/jquery.highchartTable.js"></script>-->

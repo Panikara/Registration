@@ -28,6 +28,7 @@ namespace RegistrationForm.Controllers
         }
         public ActionResult UniqueEmail(string email)
         {
+            DbContext.Configuration.ProxyCreationEnabled = false;
             tblemaildetails = DbContext.tblRegistrations.Where(a => a.Email == email).ToList();
             return Json(tblemaildetails, JsonRequestBehavior.AllowGet);
         }

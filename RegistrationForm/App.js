@@ -231,7 +231,9 @@ app.controller("MyCtrl", function ($scope, $http, UniqueEmail, $window) {
     function exportPDF() {
         var doc = new jsPDF('p', 'pt', 'a4');
 
-        var source = (document.getElementById('content').innerHTML);  
+        var source = (document.getElementById('content').innerHTML);
+        //var data = doc.autoTable(source);
+        //doc.autoTable(data.columns[0], data.columns[1], data.columns[2])
         margins = {
             height:20,
             top: 40,
